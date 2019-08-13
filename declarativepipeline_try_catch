@@ -75,6 +75,23 @@ pipeline
                 }
             }
         }
-        stage ('continuous delivery')
+        stage ('continuous delivery').
+        {
+            steps
+            {
+                script
+                {
+                    try
+                    {
+                        sh label: '', script: 'scp /home/ubuntu/.jenkins/workspace/declarative_pipeline/webapp/target/webapp.war ubuntu@ip-172-31-19-20:/var/lib/tomcat8/webapps/newprod1.war'
+                    }
+                    catch (Exception e5)
+                    {
+                        mail bcc: '', body: 'unable to delivery', cc: '', from: '', replyTo: '', subject: 'delivery issue', to: 'delivery@gmail.com'
+                        exit (1);
+                    }
+                }
+            }
+        }
     }
 }
