@@ -75,7 +75,7 @@ pipeline
                 }
             }
         }
-        stage ('continuous delivery').
+        stage ('continuous delivery')
         {
             steps
             {
